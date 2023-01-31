@@ -1,4 +1,5 @@
-import { closeModal, openModal } from "./modals"
+import { getData } from './api'
+import { closeModal, openModal } from './modals'
 
 export const authFunc = () => {
   const authBtn = document.getElementById('open-auth-btn')
@@ -7,8 +8,7 @@ export const authFunc = () => {
   const loginBtn = document.querySelector('.login-btn')
   const openCartBtn = document.getElementById('open-cart-btn')
   const logoutBtn = document.getElementById('logout-btn')
-	const cartModal = document.getElementById('cart-modal')
-
+  const cartModal = document.getElementById('cart-modal')
 
   const login = () => {
     authBtn.classList.add('d-none')
@@ -23,9 +23,20 @@ export const authFunc = () => {
     logoutBtn.classList.add('d-none')
   }
 
-  const checkAuth = () => {
-    if (JSON.parse(localStorage.getItem('auth'))) {
-      login()
+  const checkAuth = async () => {
+    const user = JSON.parse(localStorage.getItem('auth'))
+
+    if (user) {
+      const data = await getData('/profile')
+
+      if (
+        data.login &&
+        data.login === user.login &&
+        data.password &&
+        data.password === user.password
+      ) {
+        login()
+      }
     }
   }
 
@@ -35,7 +46,7 @@ export const authFunc = () => {
     btn.addEventListener('click', () => closeModal(modal))
   })
 
-  loginBtn.addEventListener('click', () => {
+  loginBtn.addEventListener('click', async () => {
     const loginInput = document.querySelector('#login-control')
     const passwordInput = document.querySelector('#password-control')
 
@@ -44,9 +55,19 @@ export const authFunc = () => {
       password: passwordInput.value,
     }
 
-    localStorage.setItem('auth', JSON.stringify(user))
+    const data = await getData('/profile')
 
-    login()
+    if (
+      data.login &&
+      data.login === user.login &&
+      data.password &&
+      data.password === user.password
+    ) {
+      localStorage.setItem('auth', JSON.stringify(data))
+      login()
+    } else {
+      alert('Неправильный логин или пароль')
+    }
   })
 
   logoutBtn.addEventListener('click', () => {
@@ -54,9 +75,9 @@ export const authFunc = () => {
     logout()
   })
 
-	openCartBtn.addEventListener('click', () => {
-		openModal(cartModal)
-	})
+  openCartBtn.addEventListener('click', () => {
+    openModal(cartModal)
+  })
 
   checkAuth()
 }

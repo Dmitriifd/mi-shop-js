@@ -1,7 +1,6 @@
 export const openModal = (modal) => {
 	const layout = document.createElement('div')
-	layout.classList.add('modal-backdrop')
-	layout.classList.add('fade')
+	layout.classList.add('modal-backdrop', 'fade')
 	document.body.append(layout)
 
   modal.classList.add('d-block')
@@ -15,10 +14,10 @@ export const openModal = (modal) => {
 export const closeModal = (modal) => {
 	const layout = document.querySelector('.modal-backdrop')
   modal.classList.remove('show')
-	layout.classList.remove('show')
+	layout && layout.classList.remove('show')
 
   setTimeout(() => {
     modal.classList.remove('d-block')
-		layout.remove()
+		layout && layout.remove()
   }, 500)
 }
