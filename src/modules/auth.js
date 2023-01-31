@@ -1,3 +1,5 @@
+import { closeModal, openModal } from "./modals"
+
 export const authFunc = () => {
   const authBtn = document.getElementById('open-auth-btn')
   const modal = document.getElementById('auth-modal')
@@ -5,26 +7,14 @@ export const authFunc = () => {
   const loginBtn = document.querySelector('.login-btn')
   const openCartBtn = document.getElementById('open-cart-btn')
   const logoutBtn = document.getElementById('logout-btn')
+	const cartModal = document.getElementById('cart-modal')
 
-  const openModal = () => {
-    modal.classList.add('d-block')
-
-    setTimeout(() => {
-      modal.classList.add('show')
-    }, 100)
-  }
-  const closeModal = () => {
-    modal.classList.remove('show')
-    setTimeout(() => {
-      modal.classList.remove('d-block')
-    }, 500)
-  }
 
   const login = () => {
     authBtn.classList.add('d-none')
     openCartBtn.classList.remove('d-none')
     logoutBtn.classList.remove('d-none')
-    closeModal()
+    closeModal(modal)
   }
 
   const logout = () => {
@@ -39,10 +29,10 @@ export const authFunc = () => {
     }
   }
 
-  authBtn.addEventListener('click', openModal)
+  authBtn.addEventListener('click', () => openModal(modal))
 
   closeBtns.forEach((btn) => {
-    btn.addEventListener('click', closeModal)
+    btn.addEventListener('click', () => closeModal(modal))
   })
 
   loginBtn.addEventListener('click', () => {
@@ -63,6 +53,10 @@ export const authFunc = () => {
     localStorage.removeItem('auth')
     logout()
   })
+
+	openCartBtn.addEventListener('click', () => {
+		openModal(cartModal)
+	})
 
   checkAuth()
 }
