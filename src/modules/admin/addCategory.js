@@ -6,7 +6,7 @@ export const addCategory = () => {
   const saveBtn = document.getElementById('category-add-btn')
 
   const container = document.getElementById('category-container')
-  const categoryList = document.getElementById('product-category')
+  const select = document.getElementById('product-category')
 
   const categoryData = {
     name: '',
@@ -32,7 +32,7 @@ export const addCategory = () => {
         `
       )
 
-      categoryList.insertAdjacentHTML(
+      select.insertAdjacentHTML(
         'beforeend',
         `
            <option value="${item.id}">${item.name}</option>
