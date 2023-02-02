@@ -1,6 +1,7 @@
 export const openModal = (modal) => {
 	const layout = document.createElement('div')
-	layout.classList.add('modal-backdrop', 'fade')
+	layout.classList.add('modal-backdrop')
+  layout.classList.add('fade')
 	document.body.append(layout)
 
   modal.classList.add('d-block')

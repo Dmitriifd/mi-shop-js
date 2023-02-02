@@ -8,7 +8,6 @@ export const authFunc = () => {
   const loginBtn = document.querySelector('.login-btn')
   const openCartBtn = document.getElementById('open-cart-btn')
   const logoutBtn = document.getElementById('logout-btn')
-  const cartModal = document.getElementById('cart-modal')
 
   const login = () => {
     authBtn.classList.add('d-none')
@@ -73,10 +72,6 @@ export const authFunc = () => {
   logoutBtn.addEventListener('click', () => {
     localStorage.removeItem('auth')
     logout()
-  })
-
-  openCartBtn.addEventListener('click', () => {
-    openModal(cartModal)
   })
 
   checkAuth()
