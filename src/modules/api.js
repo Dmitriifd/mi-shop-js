@@ -12,7 +12,41 @@ export const getData = async (path) => {
 }
 
 export const postData = async (path, data) => {
-  const response = await fetch(apiPath + path, data)
+  const response = await fetch(apiPath + path, {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  if (!response.ok) {
+    throw new Error(res.status)
+  }
+  return await response.json()
+}
+
+export const putData = async (path, data) => {
+  const response = await fetch(apiPath + path, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  if (!response.ok) {
+    throw new Error(res.status)
+  }
+  return await response.json()
+}
+
+export const patchData = async (path, data) => {
+  const response = await fetch(apiPath + path, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
   if (!response.ok) {
     throw new Error(res.status)
   }

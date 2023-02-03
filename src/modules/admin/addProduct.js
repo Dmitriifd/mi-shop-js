@@ -130,7 +130,7 @@ export const addProduct = () => {
       })
     }
   })
-
+  
   updateTable()
   checkValues()
 }
